@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>flink-demo</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<flink.version>1.20.1</flink.version>
+		<java.version>11</java.version>
+		<scala.binary.version>2.12</scala.binary.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<aws.sdk.version>2.29.26</aws.sdk.version>
+		<hadoop.version>3.3.4</hadoop.version>
+		<iceberg.version>1.8.1</iceberg.version>
+		<log4j.version>2.17.1</log4j.version>
+	</properties>
+
+	<dependencies>
+		<!-- 核心Flink依赖 -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-streaming-java</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-clients</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-scala_${scala.binary.version}</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Flink Table API -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-table-api-java-bridge</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-table-planner_${scala.binary.version}</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-table-runtime</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Flink CEP -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-cep</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Flink Connectors -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-connector-files</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Flink Formats -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-json</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-csv</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Iceberg Integration -->
+		<dependency>
+			<groupId>org.apache.iceberg</groupId>
+			<artifactId>iceberg-flink-runtime-1.20</artifactId>
+			<version>${iceberg.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.s3tables</groupId>
+			<artifactId>s3-tables-catalog-for-iceberg-runtime</artifactId>
+			<version>0.1.4</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- AWS Integration -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-s3-fs-hadoop</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>${aws.sdk.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>glue</artifactId>
+			<version>${aws.sdk.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>dynamodb</artifactId>
+			<version>${aws.sdk.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- AWS STS 依赖 -->
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>sts</artifactId>
+			<version>${aws.sdk.version}</version>
+			<scope>compile</scope> <!-- 本地开发时使用compile -->
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3tables</artifactId>
+			<version>${aws.sdk.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>kms</artifactId>
+			<version>${aws.sdk.version}</version>
+			<scope>compile</scope> <!-- 本地开发时使用compile -->
+		</dependency>
+		<!-- Hadoop Integration -->
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-common</artifactId>
+			<version>${hadoop.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-hdfs-client</artifactId>
+			<version>${hadoop.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-aws</artifactId>
+			<version>${hadoop.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-mapreduce-client-core</artifactId>
+			<version>${hadoop.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 本地运行时需要 -->
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-runtime-web</artifactId>
+			<version>${flink.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 日志相关 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.36</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+			<version>${log4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- 打包插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<excludes>
+									<exclude>org.apache.flink:force-shading</exclude>
+									<exclude>com.google.code.findbugs:jsr305</exclude>
+								</excludes>
+							</artifactSet>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>com.example.StreamingJob</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
