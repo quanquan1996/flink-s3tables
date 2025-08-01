@@ -50,7 +50,7 @@ public class IcebergGlueIntegrationTest {
                     awsRegion, accountId, bucketName);
 
             String createCatalogSQL = String.format(
-                    "CREATE CATALOG glue_catalog WITH (" +
+                    "CREATE CATALOG s3_catalog WITH (" +
                             "'type'='iceberg'," +
                             "'catalog-impl'='software.amazon.s3tables.iceberg.S3TablesCatalog'," +
                             "'warehouse'='arn:aws:s3tables:%s:%s:bucket/%s'," +
@@ -64,8 +64,8 @@ public class IcebergGlueIntegrationTest {
             System.out.println("Glue Catalog created successfully");
 
             // Use the created Catalog
-            tableEnv.useCatalog("glue_catalog");
-            System.out.println("Using glue_catalog");
+            tableEnv.useCatalog("s3_catalog");
+            System.out.println("Using s3_catalog");
 
             // List all databases
             System.out.println("Listing all databases:");
